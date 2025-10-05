@@ -13,7 +13,7 @@
 ## Overview
 The system uses labeled image data to train machine learning models capable of distinguishing between:
 - `rubbish`:
--- a
+  - s
 - `not_rubbish`
 - 
 ## Environment Setup:  
