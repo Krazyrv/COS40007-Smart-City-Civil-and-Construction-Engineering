@@ -1,6 +1,7 @@
 data_labelling/
 runs_theme1/
 yolov8*
+filestructure_screenshot*
 
 merged_dataset/images/*
 merged_dataset/labels/*
