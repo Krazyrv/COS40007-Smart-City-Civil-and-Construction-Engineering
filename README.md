@@ -32,7 +32,7 @@ The system uses labeled image data to train machine learning models capable of d
 
 The data processing adapts with our current directory structure as shown below. detailed explanation can be found in **main.ipynb**.
 
-![Screenshot](filestructure_screenshot.png)
+![Screenshot](Documents/filestructure_screenshot.png)
 
 ```project_root/
 └── dataset/
