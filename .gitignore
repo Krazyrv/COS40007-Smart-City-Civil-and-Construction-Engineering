@@ -1,1 +1,11 @@
 data_labelling/
+runs_theme1/
+yolov8*
+
+merged_dataset/images/*
+merged_dataset/labels/*
+!merged_dataset/images/.gitkeep
+!merged_dataset/labels/.gitkeep
+
+dataset/*
+!dataset/.gitkeep

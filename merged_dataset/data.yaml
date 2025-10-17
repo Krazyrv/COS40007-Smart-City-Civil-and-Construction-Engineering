@@ -1,0 +1,26 @@
+# Auto-generated data.yaml
+path: /Users/notvisal/Desktop/AI_ENG/FinalProject/COS40007-Smart-City-Civil-and-Construction-Engineering/merged_dataset
+train: images/train
+val: images/val
+
+names:
+ 0: aluminium_cans
+ 1: blanket
+ 2: car_bumper
+ 3: cardboard
+ 4: couch
+ 5: furniture_scraps
+ 6: garbage
+ 7: glass_bottle
+ 8: jug
+ 9: litter
+ 10: mattress
+ 11: paper_cup
+ 12: plastic_bottle
+ 13: rubbish_bag
+ 14: rug
+ 15: stray_trolley
+ 16: syringe
+ 17: toilet_seat
+ 18: torn_paper
+ 19: trolley
