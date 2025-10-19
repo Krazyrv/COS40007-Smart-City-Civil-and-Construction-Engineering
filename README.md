@@ -18,7 +18,7 @@ The system uses labeled image data to train machine learning models capable of d
 - `rubbish`:
   - **mattress, electrical goods, chair, couch, trolley, toy, clothes, cartoon, rubbish bag, furniture**
 - `not_rubbish`:
-  - **what are not rubbish**
+  - **what is not rubbish**
 - `damage-sign3`:
   - damaged sign: **broken sheet, bent, crack, graffiti, rust/dust**
   - non-damaged sign: **just non-damaged sign ;)**
