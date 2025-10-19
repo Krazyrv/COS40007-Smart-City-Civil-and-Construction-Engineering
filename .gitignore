@@ -45,6 +45,9 @@ venv.bak/
 .venv/
 .env/
 conda-env/
+.python-version
+pyproject.toml
+uv.lock
 
 # Jupyter Notebook
 .ipynb_checkpoints
