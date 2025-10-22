@@ -8,19 +8,27 @@ names:
  1: blanket
  2: car_bumper
  3: cardboard
- 4: couch
- 5: furniture_scraps
- 6: garbage
- 7: glass_bottle
- 8: jug
- 9: litter
- 10: mattress
- 11: paper_cup
- 12: plastic_bottle
- 13: rubbish_bag
- 14: rug
- 15: stray_trolley
- 16: syringe
- 17: toilet_seat
- 18: torn_paper
- 19: trolley
+ 4: carton
+ 5: chair
+ 6: clothes
+ 7: couch
+ 8: electrical goods
+ 9: furniture
+ 10: furniture_scraps
+ 11: garbage
+ 12: glass_bottle
+ 13: jug
+ 14: litter
+ 15: mattress
+ 16: paper_cup
+ 17: plastic_bottle
+ 18: rubbish bag
+ 19: rubbish_bag
+ 20: rug
+ 21: scrap
+ 22: stray_trolley
+ 23: syringe
+ 24: toilet_seat
+ 25: torn_paper
+ 26: toy
+ 27: trolley
