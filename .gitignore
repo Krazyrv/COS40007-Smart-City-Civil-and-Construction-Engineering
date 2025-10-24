@@ -1,6 +1,6 @@
 data_labelling/
 runs_theme1/
-yolov8*
+*.pt
 
 merged_dataset/images/*
 merged_dataset/labels/*
