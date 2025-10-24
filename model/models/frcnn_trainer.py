@@ -6,6 +6,7 @@ from torchvision import transforms as T
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
 from model.core.base import Trainer
 from model.core.data_readers import collate_detection, IMG_EXTS
+from model.config.settings import NUM_CLASSES
 
 class YoloDetectionDataset(Dataset):
     def __init__(self, img_dir, lbl_dir, size=640, num_classes=10):
@@ -23,6 +24,11 @@ class YoloDetectionDataset(Dataset):
             if not line.strip(): continue
             cls, xc, yc, bw, bh = line.split()
             cls = int(cls); xc, yc, bw, bh = map(float, (xc,yc,bw,bh))
+
+            if cls < 0 or cls >= self.num_classes:
+                print("skipping out of range classes")
+                continue
+
             x = xc*w; y = yc*h; ww=bw*w; hh=bh*h
             boxes.append([x-ww/2, y-hh/2, x+ww/2, y+hh/2])
             labels.append(cls+1)  # background=0
@@ -30,39 +36,65 @@ class YoloDetectionDataset(Dataset):
 
     def __getitem__(self, i):
         p = self.images[i]
-        im = Image.open(p).convert("RGB"); w,h = im.size
-        boxes, labels = self._read_yolo(self.lbl_dir/(p.stem+".txt"), w, h)
+        im = Image.open(p).convert("RGB"); w, h = im.size
+        boxes, labels = self._read_yolo(self.lbl_dir / (p.stem + ".txt"), w, h)
+
+        # ---> ensure correct empty shapes
+        if len(boxes) == 0:
+            boxes_t  = torch.zeros((0, 4), dtype=torch.float32)
+            labels_t = torch.zeros((0,),    dtype=torch.int64)
+            area_t   = torch.zeros((0,),    dtype=torch.float32)
+            crowd_t  = torch.zeros((0,),    dtype=torch.int64)
+        else:
+            boxes_t  = torch.tensor(boxes,  dtype=torch.float32)
+            labels_t = torch.tensor(labels, dtype=torch.int64)
+            area_t   = torch.tensor([(b[2]-b[0])*(b[3]-b[1]) for b in boxes], dtype=torch.float32)
+            crowd_t  = torch.zeros((len(boxes),), dtype=torch.int64)
+
         target = {
-            "boxes": torch.tensor(boxes, dtype=torch.float32),
-            "labels": torch.tensor(labels, dtype=torch.int64),
+            "boxes":   boxes_t,
+            "labels":  labels_t,
             "image_id": torch.tensor([i]),
-            "iscrowd": torch.zeros((len(boxes),), dtype=torch.int64),
+            "area":    area_t,
+            "iscrowd": crowd_t,
         }
         return self.tfms(im), target
+
 
 class FasterRCNNTrainer(Trainer):
     def __init__(self, img_dirs, lbl_dirs, num_classes=10, hp=None, device="cpu"):
         self.device = torch.device(device)
         size = (hp or {}).get("imgsz", 640)
-        self.train_ds = YoloDetectionDataset(img_dirs["train"], lbl_dirs["train"], size=size, num_classes=num_classes)
-        self.val_ds   = YoloDetectionDataset(img_dirs["val"],   lbl_dirs["val"],   size=size, num_classes=num_classes)
+        self.train_ds = YoloDetectionDataset(img_dirs["train"], lbl_dirs["train"], size=size, num_classes=NUM_CLASSES)
+        self.val_ds   = YoloDetectionDataset(img_dirs["val"],   lbl_dirs["val"],   size=size, num_classes=NUM_CLASSES)
         self.train_dl = DataLoader(self.train_ds, batch_size=(hp or {}).get("batch",4), shuffle=True,  num_workers=0, collate_fn=collate_detection)
         self.val_dl   = DataLoader(self.val_ds,   batch_size=(hp or {}).get("batch",4), shuffle=False, num_workers=0, collate_fn=collate_detection)
-        self.model = fasterrcnn_resnet50_fpn(weights="DEFAULT", num_classes=1+num_classes).to(self.device)
+        self.model = fasterrcnn_resnet50_fpn(weights=None, weights_backbone="DEFAULT", num_classes=1+NUM_CLASSES).to(self.device)
         self.opt = torch.optim.AdamW(self.model.parameters(), lr=(hp or {}).get("lr",2e-4), weight_decay=(hp or {}).get("weight_decay",5e-4))
         self.epochs = (hp or {}).get("epochs",10)
 
     def train(self):
         for ep in range(self.epochs):
-            self.model.train(); total=0.0
+            self.model.train(); total = 0.0
             for imgs, targets in self.train_dl:
-                imgs=[x.to(self.device) for x in imgs]
-                targets=[{k:v.to(self.device) for k,v in t.items()} for t in targets]
-                loss=sum(self.model(imgs, targets).values())
+                # filter out negatives (no boxes) to simplify two-stage training
+                imgs_f, targets_f = [], []
+                for img, tgt in zip(imgs, targets):
+                    if tgt["boxes"].numel() == 0:    # (0,4) -> numel() == 0
+                        continue
+                    imgs_f.append(img); targets_f.append({k: v for k, v in tgt.items()})
+                if not imgs_f:
+                    continue
+
+                imgs_f = [x.to(self.device) for x in imgs_f]
+                targets_f = [{k: v.to(self.device) for k, v in t.items()} for t in targets_f]
+
+                loss = sum(self.model(imgs_f, targets_f).values())
                 self.opt.zero_grad(); loss.backward(); self.opt.step()
                 total += loss.item()
-            print(f"[FRCNN] Epoch {ep+1}/{self.epochs} Loss {total/len(self.train_dl):.4f}")
-        return {"status":"ok"}
+            print(f"[FRCNN] Epoch {ep+1}/{self.epochs} Loss {total/max(1,len(self.train_dl)):.4f}")
+        return {"status": "ok"}
+
 
     def validate(self):
         self.model.eval()
