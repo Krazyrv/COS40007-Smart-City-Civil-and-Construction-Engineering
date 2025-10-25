@@ -1,0 +1,69 @@
+<annotation>
+    <folder>rubbish</folder>
+    <filename>rubbish-001.png</filename>
+    <path>data/rubbish/rubbish_001.png</path>
+ 
+    <source>
+        <database>Smart City Roadside Dataset</database>
+    </source>
+
+    <size>
+        <width>1920</width>
+        <height>1080</height>
+        <depth>3</depth>
+    </size>
+
+    <!-- Global Scene Label -->
+    <scene>rubbish_scene</scene>
+
+    <!-- Object-Level Annotations -->
+    <object>
+        <name>mattress</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>210</xmin>
+            <ymin>480</ymin>
+            <xmax>580</xmax>
+            <ymax>890</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>bag</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>900</xmin>
+            <ymin>600</ymin>
+            <xmax>1050</xmax>
+            <ymax>760</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>chair</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1200</xmin>
+            <ymin>500</ymin>
+            <xmax>1450</xmax>
+            <ymax>820</ymax>
+        </bndbox>
+    </object>
+
+    <!-- Scene–Object Relationship Metadata -->
+    <relation>
+        <scene>rubbish_scene</scene>
+        <relation_type>AssociatedWith</relation_type>
+        <object>mattress</object>
+    </relation>
+    <relation>
+        <scene>rubbish_scene</scene>
+        <relation_type>AssociatedWith</relation_type>
+        <object>bag</object>
+    </relation>
+
+</annotation>
