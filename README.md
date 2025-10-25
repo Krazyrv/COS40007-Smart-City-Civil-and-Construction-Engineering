@@ -16,7 +16,7 @@
 The system uses labeled image data to train machine learning models capable of distinguishing between:
 
 - `rubbish`:
-  - **mattress, electrical goods, chair, couch, trolley, toy, clothes, cartoon, rubbish bag, furniture**
+  - **mattress, electrical goods, chair, couch, trolley, toy, clothes, carton, rubbish bag, furniture**
 - `not_rubbish`:
   - **what is not rubbish**
 - `damage-sign3`:
