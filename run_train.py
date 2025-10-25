@@ -1,3 +1,6 @@
+
+from pathlib import Path
+
 # ... existing imports ...
 ALL_MODELS = ["yolov8n", "yolov10n", "frcnn", "ssd", "resnet50"]
 
@@ -19,11 +22,19 @@ def run_one(model_name, device):
         trainer = ResNetClassifier(IMAGES, LABELS, hp=dict(epochs=15, batch=16, lr=1e-4), device=device)
 
     print(f"\n=== Training {model_name} on {device} ===")
+    
     try:
         trainer.train()
         print("Validating …")
         metrics = trainer.validate()
         print("Metrics:", metrics)
+        # automatically save for classifier
+        if model_name == "resnet50":
+            save_path = Path("runs_models") / f"{model_name}_weights.pt"
+            save_path.parent.mkdir(parents=True, exist_ok=True)
+            trainer.save(save_path)
+            print(f"✅ Saved trained weights to: {save_path.resolve()}")
+
     except Exception as e:
         print(f"⚠️ {model_name} failed: {e}")
 
@@ -37,6 +48,7 @@ def main():
 
     set_seed(42)
     device = str(get_device(args.device))
+
 
     if args.model == "all":
         for m in ALL_MODELS:

@@ -9,6 +9,7 @@ merged_dataset/labels/*
 
 dataset/*
 !dataset/.gitkeep
+weights/*
 
 .DS_Store
 

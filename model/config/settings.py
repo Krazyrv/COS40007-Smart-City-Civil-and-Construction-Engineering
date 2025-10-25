@@ -1,4 +1,7 @@
 from pathlib import Path
+# utils to read num classes from data.yaml
+import yaml
+from pathlib import Path
 
 DATA_ROOT = Path("merged_dataset")
 DATA_YAML = DATA_ROOT / "data.yaml"
@@ -22,4 +25,20 @@ HP = dict(
     patience=12,
 )
 
-NUM_CLASSES = 10  # your object classes (not counting background)
+
+def load_num_classes_from_yaml(data_yaml: Path) -> int:
+    y = yaml.safe_load(Path(data_yaml).read_text())
+    names = y.get("names")
+    if isinstance(names, dict):
+        return len(names)
+    elif isinstance(names, list):
+        return len(names)
+    raise ValueError("Could not read 'names' from data.yaml")
+
+
+NUM_CLASSES = load_num_classes_from_yaml(DATA_YAML) 
+
+
+
+
+
