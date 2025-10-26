@@ -1,28 +1,14 @@
 aluminium_cans
 blanket
-car_bumper
+bottle
 cardboard
 carton
-chair
 clothes
 couch
-electrical goods
+electrical_goods
 furniture
-furniture_scraps
-garbage
-glass_bottle
-jug
 litter
 mattress
-paper_cup
-plastic_bottle
-rubbish bag
 rubbish_bag
-rug
-scrap
-stray_trolley
-syringe
-toilet_seat
-torn_paper
 toy
 trolley

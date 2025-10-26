@@ -4,33 +4,19 @@ path: merged_dataset
 train: images/train
 val: images/val
 
-nc: 28
+nc: 14
 names:
   0: aluminium_cans
   1: blanket
-  2: car_bumper
+  2: bottle
   3: cardboard
   4: carton
-  5: chair
-  6: clothes
-  7: couch
-  8: electrical_goods
-  9: furniture
-  10: furniture_scraps
-  11: garbage
-  12: glass_bottle
-  13: jug
-  14: litter
-  15: mattress
-  16: paper_cup
-  17: plastic_bottle
-  18: rubbish_bag
-  19: rubbish_pile
-  20: rug
-  21: scrap
-  22: stray_trolley
-  23: syringe
-  24: toilet_seat
-  25: torn_paper
-  26: toy
-  27: trolley
+  5: clothes
+  6: couch
+  7: electrical_goods
+  8: furniture
+  9: litter
+  10: mattress
+  11: rubbish_bag
+  12: toy
+  13: trolley
