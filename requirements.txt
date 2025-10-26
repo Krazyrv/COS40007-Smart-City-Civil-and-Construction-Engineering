@@ -7,3 +7,4 @@ pillow==10.4.0
 matplotlib==3.8.4
 numpy==1.26.4
 streamlit==1.39.0
+plotly
