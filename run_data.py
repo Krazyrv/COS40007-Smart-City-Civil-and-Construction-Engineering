@@ -194,22 +194,6 @@ for tdir in teammates:
         # - convert shapes -> YOLO labels
         json_entries.append((tdir.name, ap, data))
 
-        # collect class labels from the JSON
-        # LabelMe stores shapes (boxes or polygons) under 'shapes'
-        for sh in data.get("shapes", []):
-            lab = sh.get("label")
-            if lab:
-                # add to a set to ensure each class appears only one overall.
-                classes_set.add(lab)
-
-
-# sort the unordered set so class indices are stsable and reproducible
-CLASSES = sorted(classes_set)
-
-# diagnostics
-print(f"\nDiscovered {len(CLASSES)} classes:", CLASSES)
-print(f"Total annotation files discovered: {len(json_entries)}")
-
 # canonical classes + alias map and a normalizer
 CANONICAL = [
     "mattress",
@@ -224,7 +208,6 @@ CANONICAL = [
     "litter",
     "carton",
     "aluminium_cans",
-    "blanket",
     "bottle",
 ]
 
@@ -235,7 +218,7 @@ ALIASES = {
     # common mislabels / synonyms
     "stray_trolley": "trolley",
     "scrap": "litter",
-    "jug": "carton",
+    "jug": "bottle",
     "garbage": "rubbish_bag",
     "furniture_scraps": "furniture",
     "chair": "furniture",
@@ -273,6 +256,25 @@ def canonicalize(raw_label: str, fuzzy=True):
         return CANON_LOWER[s]
 
     return None
+
+
+# collect canonicalized class labels from all annotation files
+for tname, ap, data in json_entries:
+    for sh in data.get("shapes", []):
+        lab = sh.get("label")
+        if lab:
+            # apply canonicalization before adding to classes set
+            canon = canonicalize(lab)
+            if canon:
+                # add to a set to ensure each class appears only one overall.
+                classes_set.add(canon)
+
+# sort the unordered set so class indices are stable and reproducible
+CLASSES = sorted(classes_set)
+
+# diagnostics
+print(f"\nDiscovered {len(CLASSES)} canonical classes:", CLASSES)
+print(f"Total annotation files discovered: {len(json_entries)}")
 
 
 normalized_counts = Counter()

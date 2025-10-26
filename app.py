@@ -105,7 +105,7 @@ try:
         model = load_yolo_model(model_path)
         st.sidebar.success("✅ YOLOv8n model loaded!")
     elif "YOLOv10n" in model_type:
-        model_path = "runs_models/yolov10n/weights/best.pt"
+        model_path = "runs_models/yolov10n6/weights/best.pt"
         model = load_yolo_model(model_path)
         st.sidebar.success("✅ YOLOv10n model loaded!")
     elif "Faster R-CNN" in model_type:
