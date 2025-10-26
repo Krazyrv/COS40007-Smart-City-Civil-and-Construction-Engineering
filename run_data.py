@@ -63,6 +63,10 @@ def to_yolo_line(cls_id, bbox, img_w, img_h):
     xmin, ymin = max(0, xmin), max(0, ymin)
     xmax, ymax = min(img_w, xmax), min(img_h, ymax)
 
+    # validate box dimensions (must have positive width and height)
+    if xmax <= xmin or ymax <= ymin:
+        return None  # Skip invalid boxes
+
     # convert to YOLO (normalized)
     xc = ((xmin + xmax) / 2) / img_w
     yc = ((ymin + ymax) / 2) / img_h
