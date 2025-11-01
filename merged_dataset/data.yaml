@@ -1,5 +1,5 @@
 # Auto-generated data.yaml
-path: /Users/notvisal/Desktop/AI_ENG/FinalProject/COS40007-Smart-City-Civil-and-Construction-Engineering/merged_dataset
+path: C:\Users\krazy\OneDrive - Swinburne University\Studying\Swinburne Studying\2025-Semester_2\COS40007-AI_for_Engineering\COS40007-Smart_City-Civil_and_Construction_Engineering\merged_dataset
 train: images/train
 val: images/val
 
@@ -10,25 +10,21 @@ names:
  3: cardboard
  4: carton
  5: chair
- 6: clothes
- 7: couch
- 8: electrical goods
- 9: furniture
- 10: furniture_scraps
- 11: garbage
- 12: glass_bottle
- 13: jug
- 14: litter
- 15: mattress
- 16: paper_cup
- 17: plastic_bottle
- 18: rubbish bag
- 19: rubbish_bag
- 20: rug
- 21: scrap
- 22: stray_trolley
- 23: syringe
- 24: toilet_seat
- 25: torn_paper
- 26: toy
- 27: trolley
+ 6: couch
+ 7: electrical goods
+ 8: furniture
+ 9: furniture_scraps
+ 10: garbage
+ 11: glass_bottle
+ 12: jug
+ 13: litter
+ 14: mattress
+ 15: paper_cup
+ 16: plastic_bottle
+ 17: rubbish_bag
+ 18: rug
+ 19: stray_trolley
+ 20: syringe
+ 21: toilet_seat
+ 22: torn_paper
+ 23: trolley
