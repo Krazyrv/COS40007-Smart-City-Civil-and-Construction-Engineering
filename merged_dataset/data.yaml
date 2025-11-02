@@ -1,30 +1,27 @@
 # Auto-generated data.yaml
-path: C:\Users\krazy\OneDrive - Swinburne University\Studying\Swinburne Studying\2025-Semester_2\COS40007-AI_for_Engineering\COS40007-Smart_City-Civil_and_Construction_Engineering\merged_dataset
+path: D:\Studying\Swinburne-Studying\2025-Semester-2\COS40007-AI_for_Engineering\Smart-City-Civil-and-Construction-Engineering\merged_dataset
 train: images/train
 val: images/val
-
 names:
- 0: aluminium_cans
+ 0: litter
  1: blanket
- 2: car_bumper
- 3: cardboard
- 4: carton
- 5: chair
- 6: couch
- 7: electrical goods
- 8: furniture
- 9: furniture_scraps
- 10: garbage
- 11: glass_bottle
- 12: jug
- 13: litter
- 14: mattress
- 15: paper_cup
- 16: plastic_bottle
- 17: rubbish_bag
- 18: rug
- 19: stray_trolley
- 20: syringe
- 21: toilet_seat
- 22: torn_paper
- 23: trolley
+ 2: trolley
+ 3: aluminium_cans
+ 4: clothes
+ 5: trash_can
+ 6: bottle
+ 7: bumper
+ 8: carton
+ 9: toy
+ 10: mail
+ 11: electrical_goods
+ 12: mattress
+ 13: couch
+ 14: cup
+ 15: waste
+ 16: furniture
+ 17: wooden_pallet
+ 18: cardboard
+ 19: toilet_seat
+ 20: styrofoam
+ 21: rubbish_bag
