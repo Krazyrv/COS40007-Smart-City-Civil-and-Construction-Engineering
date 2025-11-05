@@ -16,13 +16,13 @@ LABELS = {
 
 # common hyperparams
 HP = dict(
-    epochs=50,
+    epochs=200,
     imgsz=640,
     batch=16,
     lr=2e-3,
     weight_decay=5e-4,
     workers=4,          # safer on macOS
-    patience=12,
+    # patience=12,
 )
 
 
